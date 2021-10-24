@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        .item1 {
+            grid-area: Header;
+        }
+
+        .item2 {
+            grid-area: Header;
+        }
+
+        .item3 {
+            grid-area: Navigation;
+        }
+
+        .item4 {
+            grid-area: Main;
+        }
+
+        .item5 {
+            grid-area: Footer;
+        }
+
+        .item6 {
+            grid-area: Footer;
+        }
+
+        body {
+            margin: 0;
+            height: 100%;
+        }
+
+
+
+        .grid-container {
+            display: grid;
+            grid-template-areas:
+                'Header Header'
+                'Navigation Main'
+                'Footer Footer';
+            grid-gap: 10px;
+            height: 100%;
+            background-color: #2196F3;
+            grid-template-columns: 100px auto;
+            grid-template-rows: 50px auto 50px;
+            padding: 10px;
+        }
+
+        /* .grid-container>div {
+            background-color: rgba(255, 255, 255, 0.8);
+            text-align: center;
+            padding: 20px 0;
+            font-size: 30px;
+        } */
+        
+        .page-container {
+            display: flex;
+            height: 100%;
+            background-color: yellow;
+            width: 100%;
+            flex: 1 1 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-container">
+        <div class="grid-container">
+            <div class="item1">1</div>
+            <div class="item2">2</div>
+            <div class="item3">3</div>
+            <div class="item4">4</div>
+            <div class="item5">5</div>
+            <div class="item6">6</div>
+        </div>
+    </div>
+</body>
+
+</html>
