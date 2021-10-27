@@ -1,7 +1,13 @@
 ﻿@page "/"
+    <div class="heading-for-form">
+        Plan a journey
+    </div>
 
-<h1>Hello, world!</h1>
+    <div class="box-around-input">
+        <form action="/action_page.php">
+            <div><input class="from-textbox" type="text" id="fname" name="fname" placeholder="From"></div>
+            <div><input class="from-textbox" type="text" id="lname" name="lname" placeholder="To"></div>
+            <div><input class="submit-button" type="submit" value="Plan my journey"></div>
+        </form>
 
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?" />
+    </div>
