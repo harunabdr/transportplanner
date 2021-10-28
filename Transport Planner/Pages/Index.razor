@@ -1,13 +1,29 @@
-﻿@page "/"
-    <div class="heading-for-form">
-        Plan a journey
-    </div>
+﻿@using Transport_Planner.Services
 
-    <div class="box-around-input">
-        <form action="/action_page.php">
-            <div><input class="from-textbox" type="text" id="fname" name="fname" placeholder="From"></div>
-            <div><input class="from-textbox" type="text" id="lname" name="lname" placeholder="To"></div>
-            <div><input class="submit-button" type="submit" value="Plan my journey"></div>
-        </form>
+@page "/"
+<div class="heading-for-form">
+    Plan a journey
+</div>
 
-    </div>
+<div class="box-around-input">
+    <div><input class="from-textbox" type="text" placeholder="From" @oninput="onChange" /></div>
+    <div><input class="from-textbox" type="text" placeholder="To"></div>
+    <div><input class="submit-button" type="submit" value="Plan my journey"></div>
+    @value
+</div>
+
+@code {
+
+    private string value { get; set; }
+    private void onChange(ChangeEventArgs args)
+    {
+        value = (string)args.Value;
+
+        if (value.Length > 3)
+        {
+            var tflClientService = new TFLClientService();
+            var response = tflClientService.GetLocations(value);
+        }
+
+    }
+}
