@@ -1,4 +1,5 @@
 ﻿@using Transport_Planner.Services
+@using Transport_Planner.Models
 
 @page "/"
 <div class="heading-for-form">
@@ -6,24 +7,54 @@
 </div>
 
 <div class="box-around-input">
-    <div><input class="from-textbox" type="text" placeholder="From" @oninput="onChange" /></div>
-    <div><input class="from-textbox" type="text" placeholder="To"></div>
-    <div><input class="submit-button" type="submit" value="Plan my journey"></div>
-    @value
+
+    @*Textboxes for users to input and submit button*@ 
+
+    <div><input @bind="fromPoint" class="from-textbox" list="stop-results" type="text" placeholder="From" autocomplete="off" @oninput="onChange" /></div>
+    <div><input @bind="toPoint" class="from-textbox" list="stop-results" type="text" placeholder="To" autocomplete="off" @oninput="onChange" /></div>
+    <div><button class="submit-button" value="Plan my journey" @onclick="onClick"></button></div>
 </div>
+
+<datalist id="stop-results">
+
+    @*if search term is not null, lookup search term and iterate via matched stops*@
+
+    @if (response != null && response.Matches != null)
+    {
+        @foreach (var match in response.Matches)
+        {
+            @*iterate through results and populate into the textbox*@
+
+            <option>@match.Name</option>
+        }
+    }
+</datalist>
 
 @code {
 
+    private string fromPoint;
+    private string toPoint;
+    private ApiResponse response;
     private string value { get; set; }
+
+
     private void onChange(ChangeEventArgs args)
     {
         value = (string)args.Value;
 
+        //if length of input > 3, lookup input via API to return possible matches
+
         if (value.Length > 3)
         {
             var tflClientService = new TFLClientService();
-            var response = tflClientService.GetLocations(value);
+            response = tflClientService.GetLocations(value);
         }
+
+    }
+
+    private void onClick()
+    {
+
 
     }
 }

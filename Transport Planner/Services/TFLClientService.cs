@@ -10,7 +10,7 @@ namespace Transport_Planner.Services
 {
     public class TFLClientService
     {
-        public int GetLocations(string searchTerms)
+        public ApiResponse GetLocations(string searchTerms)
         {
             using (var client = new HttpClient())
             {
@@ -22,9 +22,9 @@ namespace Transport_Planner.Services
 
                     var stringResult =  response.Content.ReadAsStringAsync().Result;
 
-                    var rawData = JsonConvert.DeserializeObject<ApiResponse>(stringResult);
+                    var results = JsonConvert.DeserializeObject<ApiResponse>(stringResult);
 
-                    return 0;
+                    return results;
                     
 
                 }
