@@ -7,12 +7,21 @@
 </div>
 
 <div class="box-around-input">
+<<<<<<< Updated upstream
 
     @*Textboxes for users to input and submit button*@ 
 
     <div><input @bind="fromPoint" class="from-textbox" list="stop-results" type="text" placeholder="From" autocomplete="off" @oninput="onChange" /></div>
     <div><input @bind="toPoint" class="from-textbox" list="stop-results" type="text" placeholder="To" autocomplete="off" @oninput="onChange" /></div>
     <div><button class="submit-button" value="Plan my journey" @onclick="onClick"></button></div>
+=======
+    @*Textboxes and submit buttons*@
+
+    <div><input class="from-textbox" type="text" placeholder="From" @oninput="onChange" /></div>
+    <div><input class="from-textbox" type="text" placeholder="To"></div>
+    <div><input class="submit-button" type="submit" value="Plan my journey"></div>
+    @value
+>>>>>>> Stashed changes
 </div>
 
 <datalist id="stop-results">
@@ -42,7 +51,11 @@
     {
         value = (string)args.Value;
 
+<<<<<<< Updated upstream
         //if length of input > 3, lookup input via API to return possible matches
+=======
+        //if length of entry into textbox is longer than 3 characters then it looks up via API for full matches
+>>>>>>> Stashed changes
 
         if (value.Length > 3)
         {
