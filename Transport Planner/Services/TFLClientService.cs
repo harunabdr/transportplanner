@@ -24,10 +24,10 @@ namespace Transport_Planner.Services
 
                     var stringResult =  response.Content.ReadAsStringAsync().Result;
 
+
                     //deserialise JSON response into ApiResponse class
 
                     var results = JsonConvert.DeserializeObject<ApiGeolocationResponse>(stringResult);
-                    var apiResponse = JsonConvert.DeserializeObject<ApiGeolocationResponse>(stringResult);
 
                     return results;
                     
