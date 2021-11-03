@@ -22,11 +22,7 @@ namespace Transport_Planner.Services
 
                     var stringResult =  response.Content.ReadAsStringAsync().Result;
 
-<<<<<<< Updated upstream
                     var results = JsonConvert.DeserializeObject<ApiResponse>(stringResult);
-=======
-                    var apiResponse = JsonConvert.DeserializeObject<ApiResponse>(stringResult);
->>>>>>> Stashed changes
 
                     return results;
                     
