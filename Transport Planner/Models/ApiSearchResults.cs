@@ -9,7 +9,7 @@ namespace Transport_Planner.Models
     {
         public List<Journey> Journeys { get; set; }
         public List<Line> Lines { get; set; }
-        //public List<object> StopMessages { get; set; }
+        public List<object> StopMessages { get; set; }
         //public int RecommendedMaxAgeMinutes { get; set; }
         //public SearchCriteria SearchCriteria { get; set; }
         //public JourneyVector JourneyVector { get; set; }

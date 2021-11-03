@@ -21,27 +21,36 @@
     @if (results != null && results.Journeys != null)
     {
 
-        @for (var i = 0; i < results.Journeys.Count; i++)
+        @for (var i = 1; i < results.Journeys.Count; i++)
         {
 
             @*iterate through results and display summary to user*@
 
-            <div class="box-around-result">
+    <div class="box-around-result">
 
-                <div>Journey @(i+1)</div>
-                <div>Departure Time: @results.Journeys[i].StartDateTime.ToShortTimeString()</div>
+        <div class="journey-heading"><b>Journey @(i)</b></div>
+        <div class="time">Departure Time: <b>@results.Journeys[i].StartDateTime.ToShortTimeString()</b></div>
 
-                @foreach (var leg in results.Journeys[i].Legs)
-                {
-                    <div>@leg.Instruction.Summary</div>
-                }
+        <ol>
+            @foreach (var leg in results.Journeys[i].Legs)
+            {
+                <li class="leg-instruction">At @leg.DepartureTime.ToShortTimeString(), @leg.Instruction.Summary, for @leg.Duration mins.</li>
+            }
+        </ol>
 
-                <div>Arrival Time: @results.Journeys[i].ArrivalDateTime.ToShortTimeString()</div>
-                <div>Cost: £@GetFare(results.Journeys[i].Fare)</div>
+        <div class="time">Arrival Time: <b>@results.Journeys[i].ArrivalDateTime.ToShortTimeString()</b></div>
 
-            </div>
-            <br />
+        <div class="time">Duration: <b>@results.Journeys[i].Duration.ToString() mins</b></div>
 
+        <div class="no-output">
+            @(fare = GetFare(results.Journeys[i].Fare))
+        </div>
+
+        @if (@displayCost)
+        {
+            <div class="cost">Cost: <b>£@fare</b></div>
+        }
+    </div>
 
         }
     }
@@ -74,6 +83,8 @@
     private ApiGeolocationResponse response;
     private ApiSearchResults results;
     private string value { get; set; }
+    private bool displayCost { get; set; }
+    private string fare;
 
 
     private void OnChange(ChangeEventArgs args)
@@ -101,9 +112,12 @@
 
     private string GetFare(Fare fare)
     {
-        if (fare == null ) {
-            return "0";
+        if (fare == null)
+        {
+            displayCost = false;
+            return "0.00";
         }
-        return ((double)fare.TotalCost / 100).ToString();
+        displayCost = true;
+        return ((decimal)fare.TotalCost / 100).ToString("0.00");
     }
 }

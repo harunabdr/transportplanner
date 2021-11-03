@@ -10,8 +10,8 @@ namespace Transport_Planner.Models
         public int Duration { get; set; }
         public Instruction Instruction { get; set; }
         //public List<Obstacle> Obstacles { get; set; }
-        //public DateTime DepartureTime { get; set; }
-        //public DateTime ArrivalTime { get; set; }
+        public DateTime DepartureTime { get; set; }
+        public DateTime ArrivalTime { get; set; }
         //public DeparturePoint DeparturePoint { get; set; }
         //public ArrivalPoint ArrivalPoint { get; set; }
         //public Path Path { get; set; }
