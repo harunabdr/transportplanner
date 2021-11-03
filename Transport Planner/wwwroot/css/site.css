@@ -248,5 +248,10 @@ app {
         padding-top: 10px;
         font-family: 'Trebuchet MS';
         font-size: 36px;
+
+    }
+
+    .box-around-result {
+        border: 1px gray solid;
     }
 }

@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Threading.Tasks;
 
 namespace Transport_Planner.Models
@@ -12,5 +14,7 @@ namespace Transport_Planner.Models
         public DateTime ArrivalDateTime { get; set; }
         public List<Leg> Legs { get; set; }
         public Fare Fare { get; set; }
+
     }
+
 }

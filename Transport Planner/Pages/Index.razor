@@ -21,21 +21,25 @@
     @if (results != null && results.Journeys != null)
     {
 
-        @for (var i = 1; i <= results.Journeys.Count; i++)
+        @for (var i = 0; i < results.Journeys.Count; i++)
         {
+
             @*iterate through results and display summary to user*@
-            <div>Journey @i</div>
-            <div>Departure Time: @results.Journeys[i - 1].StartDateTime.ToShortTimeString()</div>
 
-            @foreach (var leg in results.Journeys[i - 1].Legs)
-            {
-                <div>@leg.Instruction.Summary</div>
-            }
+            <div class="box-around-result">
 
-            <div>Arrival Time: @results.Journeys[i - 1].ArrivalDateTime.ToShortTimeString()</div>
-            <div>Cost: £@GetFare((double)results.Journeys[i - 1].Fare.TotalCost)</div>
+                <div>Journey @(i+1)</div>
+                <div>Departure Time: @results.Journeys[i].StartDateTime.ToShortTimeString()</div>
 
+                @foreach (var leg in results.Journeys[i].Legs)
+                {
+                    <div>@leg.Instruction.Summary</div>
+                }
 
+                <div>Arrival Time: @results.Journeys[i].ArrivalDateTime.ToShortTimeString()</div>
+                <div>Cost: £@GetFare(results.Journeys[i].Fare)</div>
+
+            </div>
             <br />
 
 
@@ -95,8 +99,11 @@
         results = tflClientService.GetJourney(firstPoint.Matches.First().Id, secondPoint.Matches.First().Id);
     }
 
-    private string GetFare(double fare)
+    private string GetFare(Fare fare)
     {
-        return (fare / 100).ToString();
+        if (fare == null ) {
+            return "0";
+        }
+        return ((double)fare.TotalCost / 100).ToString();
     }
 }
