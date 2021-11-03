@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Transport_Planner.Models
 {
-    public class ApiResponse
+    public class ApiGeolocationResponse
     {
         public string Query { get; set; }
         public int Total { get; set; }

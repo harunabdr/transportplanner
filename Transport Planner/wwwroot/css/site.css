@@ -203,7 +203,7 @@ app {
     }
 
     .show-button {
-        width: 300px;
+        width: 350px;
         height: 40px;
         font-size: 18px;
         margin-top: 0px;
@@ -222,7 +222,7 @@ app {
     .box-around-live-arrivals {
         border: 1px gray solid;
         padding: 30px;
-        width: 360px;
+        width: 410px;
         background-color: lightgray;
     }
 
@@ -241,12 +241,53 @@ app {
     .heading-for-live-arrivals {
         border: 1px gray solid;
         padding: 10px;
-        width: 360px;
+        width: 410px;
         background-color: #222;
         color: white;
         padding-left: 30px;
         padding-top: 10px;
         font-family: 'Trebuchet MS';
         font-size: 36px;
+    }
+
+    .box-around-result {
+        border: 1px gray solid;
+        width: 100%;
+        padding: 10px;
+        background-color: whitesmoke;
+        border-radius: 2px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .journey-heading {
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        font-size: 24px;
+        padding-bottom: 5px;
+        background-color: midnightblue;
+        color: white;
+        padding: 10px;
+        margin-bottom: 5px;
+    }
+
+    .time {
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        font-size: 20px;
+        padding-bottom: 5px;
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+
+    .leg-instruction {
+        margin-bottom: 7px;
+        font-size: 18px;
+    }
+
+    .cost {
+        font-size: 20px;
+    }
+
+    .no-output {
+        display: none !important;
     }
 }

@@ -8,10 +8,55 @@
 
 <div class="box-around-input">
 
-    <div><input @bind="fromPoint" class="from-textbox" list="stop-results" type="text" placeholder="From" autocomplete="off" @oninput="onChange" /></div>
-    <div><input @bind="toPoint" class="from-textbox" list="stop-results" type="text" placeholder="To" autocomplete="off" @oninput="onChange" /></div>
-    <div><button class="submit-button" value="Plan my journey" @onclick="onClick"></button></div>
+    @*Textboxes for users to input and submit button*@
+
+    <div><input @bind="fromPoint" class="from-textbox" list="stop-results" type="text" placeholder="From" autocomplete="off" @oninput="OnChange" /></div>
+    <div><input @bind="toPoint" class="from-textbox" list="stop-results" type="text" placeholder="To" autocomplete="off" @oninput="OnChange" /></div>
+    <div><button class="submit-button" @onclick="OnClick">Plan my journey</button></div>
+
 </div>
+
+<div class="results">
+
+    @if (results != null && results.Journeys != null)
+    {
+
+        @for (var i = 1; i < results.Journeys.Count; i++)
+        {
+
+            @*iterate through results and display summary to user*@
+
+    <div class="box-around-result">
+
+        <div class="journey-heading"><b>Journey @(i)</b></div>
+        <div class="time">Departure Time: <b>@results.Journeys[i].StartDateTime.ToShortTimeString()</b></div>
+
+        <ol>
+            @foreach (var leg in results.Journeys[i].Legs)
+            {
+                <li class="leg-instruction">At @leg.DepartureTime.ToShortTimeString(), @leg.Instruction.Summary, for @leg.Duration mins.</li>
+            }
+        </ol>
+
+        <div class="time">Arrival Time: <b>@results.Journeys[i].ArrivalDateTime.ToShortTimeString()</b></div>
+
+        <div class="time">Duration: <b>@results.Journeys[i].Duration.ToString() mins</b></div>
+
+        <div class="no-output">
+            @(fare = GetFare(results.Journeys[i].Fare))
+        </div>
+
+        @if (@displayCost)
+        {
+            <div class="cost">Cost: <b>£@fare</b></div>
+        }
+    </div>
+
+        }
+    }
+</div>
+
+
 
 <datalist id="stop-results">
 
@@ -19,7 +64,9 @@
 
     @if (response != null && response.Matches != null)
     {
-        @foreach (var match in response.Matches)
+        @*search terms with 6 characters are wide geographical locations, so are excluded from the list*@
+
+        @foreach (var match in response.Matches.Where(m => m.Id.Length > 6))
         {
             @*iterate through results and populate into the textbox*@
 
@@ -30,13 +77,17 @@
 
 @code {
 
+    public int i;
     private string fromPoint;
     private string toPoint;
-    private ApiResponse response;
+    private ApiGeolocationResponse response;
+    private ApiSearchResults results;
     private string value { get; set; }
+    private bool displayCost { get; set; }
+    private string fare;
 
 
-    private void onChange(ChangeEventArgs args)
+    private void OnChange(ChangeEventArgs args)
     {
         value = (string)args.Value;
 
@@ -50,9 +101,23 @@
 
     }
 
-    private void onClick()
+    private void OnClick()
     {
+        var tflClientService = new TFLClientService();
+        var firstPoint = tflClientService.GetLocations(fromPoint);
+        var secondPoint = tflClientService.GetLocations(toPoint);
 
+        results = tflClientService.GetJourney(firstPoint.Matches.First().Id, secondPoint.Matches.First().Id);
+    }
 
+    private string GetFare(Fare fare)
+    {
+        if (fare == null)
+        {
+            displayCost = false;
+            return "0.00";
+        }
+        displayCost = true;
+        return ((decimal)fare.TotalCost / 100).ToString("0.00");
     }
 }
