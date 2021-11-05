@@ -28,9 +28,13 @@
 
     <div class="box-around-result">
 
+        @*The journey number is iterated and shown as the heading for each journey*@
         <div class="journey-heading"><b>Journey @(i)</b></div>
+
+        @*Showing the departure time, including formatting*@
         <div class="time">Departure Time: <b>@results.Journeys[i].StartDateTime.ToShortTimeString()</b></div>
 
+        @*Iterating through each leg in a journey, and outputting the departure time, instruction, and duration of the leg*@
         <ol>
             @foreach (var leg in results.Journeys[i].Legs)
             {
@@ -38,14 +42,18 @@
             }
         </ol>
 
+        @*Showing the arrival time*@
         <div class="time">Arrival Time: <b>@results.Journeys[i].ArrivalDateTime.ToShortTimeString()</b></div>
 
+        @*Showing the overall duration*@
         <div class="time">Duration: <b>@results.Journeys[i].Duration.ToString() mins</b></div>
 
+        @*Calls to the GetFare method to get the fare - in no-output class so css can ensure no output*@
         <div class="no-output">
             @(fare = GetFare(results.Journeys[i].Fare))
         </div>
 
+        @*Outputs the cost*@
         @if (@displayCost)
         {
             <div class="cost">Cost: <b>£@fare</b></div>

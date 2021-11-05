@@ -48,18 +48,24 @@ namespace Transport_Planner.Services
             {
                 try
                 {
+                    //calling API with user input in variables fromPoint and toPoint
+
                     client.BaseAddress = new Uri("https://api.tfl.gov.uk");
                     var response = client.GetAsync($"/journey/journeyresults/{fromPoint}/to/{toPoint}?app_key=daab2828b18b4613a8b7b0ceec1b2770").Result;
                     response.EnsureSuccessStatusCode();
 
                     var stringResult = response.Content.ReadAsStringAsync().Result;
 
+                    //deserialise JSON response into ApiSearchResults class
                     var results = JsonConvert.DeserializeObject<ApiSearchResults>(stringResult);
 
+                    //returning deserialised results
                     return results;
 
 
                 }
+                //error handling
+
                 catch (Exception httpRequestException)
                 {
                     throw httpRequestException;

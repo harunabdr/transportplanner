@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="C:\Users\harun\OneDrive\Desktop\Beths\A-Levels\Computing\NEA Project\Iterative Prototypes\Complete Project\1.00\Program.cs" Link="Program.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
